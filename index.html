@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palm Valley Pickleball Association</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #1B3D8C;
+      --blue-dark: #122970;
+      --green:   #2B6E34;
+      --green-light: #3a8a44;
+      --orange:  #E8722A;
+      --yellow:  #F5C200;
+      --white:   #FFFFFF;
+      --gray-bg: #F5F5F0;
+      --gray-text: #555;
+      --border:  #ddd;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--gray-bg);
+      color: #222;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--blue-dark);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .site-header img {
+      height: 72px;
+      width: auto;
+    }
+
+    /* ── TAB BAR ── */
+    .tab-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--blue);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active {
+      color: var(--yellow);
+      border-bottom-color: var(--yellow);
+    }
+
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
+    .hero {
+      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 50%, var(--green) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 24px 64px;
+    }
+    .hero-logo {
+      width: 180px;
+      height: auto;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--yellow); }
+    .hero p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .btn {
+      display: inline-block;
+      padding: 13px 30px;
+      border-radius: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-orange { background: var(--orange); color: #fff; }
+    .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.6); color: #fff; margin-left: 12px; }
+
+    /* Info strip */
+    .info-strip {
+      background: var(--green);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .info-item {
+      color: #fff;
+      padding: 18px 36px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+    .info-item:last-child { border-right: none; }
+    .info-item .label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 4px;
+    }
+    .info-item .value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    /* Home cards */
+    .home-cards {
+      max-width: 1000px;
+      margin: 56px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .card-header {
+      background: var(--blue);
+      color: #fff;
+      padding: 18px 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-body { padding: 20px; }
+    .card-body p { font-size: 0.92rem; color: var(--gray-text); line-height: 1.65; }
+    .card-body .cta {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+    }
+    .card-body .cta:hover { color: var(--orange); }
+    .card-body .cta::after { content: ' →'; }
+
+    /* ── ABOUT ── */
+    .page-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+    .page-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--blue-dark);
+      border-left: 5px solid var(--orange);
+      padding-left: 16px;
+      margin-bottom: 36px;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    @media(max-width:600px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-block h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .about-block p {
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: var(--gray-text);
+    }
+
+    .values-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .values-list li {
+      background: var(--blue-dark);
+      color: #fff;
+      border-radius: 6px;
+      padding: 18px 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .values-list li .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    /* ── COURT HOURS ── */
+    .hours-intro {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.85);
+      border-radius: 8px;
+      padding: 22px 24px;
+      margin-bottom: 36px;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+    .hours-intro strong { color: var(--yellow); }
+
+    .day-section { margin-bottom: 40px; }
+    .day-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--blue-dark);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .weekend-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .slots-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+    .slots-table thead th {
+      background: var(--blue);
+      color: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .slots-table tbody tr { border-bottom: 1px solid #eee; }
+    .slots-table tbody tr:last-child { border-bottom: none; }
+    .slots-table tbody td { padding: 11px 14px; color: #333; }
+    .slots-table tbody tr:hover { background: #f9f9f7; }
+
+    .level-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .level-beginner { background: #e8f5e9; color: #2B6E34; }
+    .level-intermediate { background: #fff3e0; color: #c35a00; }
+    .level-advanced { background: #e3f2fd; color: #1B3D8C; }
+    .level-open { background: #f3e5f5; color: #7b1fa2; }
+
+    .prime-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    /* ── SIGN UP ── */
+    .signup-hero {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      color: #fff;
+      border-radius: 10px;
+      padding: 40px 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .signup-hero h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .signup-hero p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.65;
+      max-width: 460px;
+      margin: 0 auto 24px;
+    }
+    .price-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--blue-dark);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      padding: 8px 22px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    .signup-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .signup-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .signup-card-head {
+      background: var(--green);
+      color: #fff;
+      padding: 14px 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .signup-card-body { padding: 20px; }
+    .signup-card-body p { font-size: 0.9rem; color: var(--gray-text); line-height: 1.65; margin-bottom: 8px; }
+    .signup-card-body p:last-child { margin-bottom: 0; }
+    .signup-card-body strong { color: #222; }
+
+    .paypal-btn {
+      display: block;
+      width: 100%;
+      background: #0070ba;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      border-radius: 6px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+    .paypal-btn:hover { background: #005ea6; }
+
+    .steps-list {
+      list-style: none;
+      counter-reset: step;
+    }
+    .steps-list li {
+      counter-increment: step;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 0.92rem;
+      color: var(--gray-text);
+      line-height: 1.6;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      content: counter(step);
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .note-box {
+      background: #fff8e1;
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 6px 6px 0;
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.65;
+      margin-top: 28px;
+    }
+    .note-box strong { color: #222; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .site-footer strong { color: rgba(255,255,255,0.8); }
+
+    @media (max-width: 480px) {
+      .tab-btn { padding: 12px 12px; font-size: 0.75rem; }
+      .info-item { padding: 14px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <img src="../pvpa.png" alt="Palm Valley Pickleball Association" />
+  </header>
+
+  <!-- TAB BAR -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('home', this)">Home</button>
+    <button class="tab-btn" onclick="switchTab('about', this)">About</button>
+    <button class="tab-btn" onclick="switchTab('hours', this)">Court Hours</button>
+    <button class="tab-btn" onclick="switchTab('signup', this)">Open Play Sign Up</button>
+  </nav>
+
+  <!-- ══ HOME PAGE ══ -->
+  <section id="home" class="page active">
+    <div class="hero">
+      <img src="../pvpa.png" alt="PVPA" class="hero-logo" />
+      <h1>Welcome to <span>Palm Valley</span><br>Pickleball</h1>
+      <p>Your community for competitive and recreational play in the heart of Palm Valley. All skill levels welcome.</p>
+      <button class="btn btn-orange" onclick="switchTab('signup', document.querySelector('[onclick*=signup]'))">Join Open Play</button>
+      <button class="btn btn-outline" onclick="switchTab('hours', document.querySelector('[onclick*=hours]'))">View Court Hours</button>
+    </div>
+
+    <div class="info-strip">
+      <div class="info-item">
+        <div class="label">Location</div>
+        <div class="value">Palm Valley Courts</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Open Play Fee</div>
+        <div class="value">$5 Weekends</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Courts</div>
+        <div class="value">6 Dedicated Courts</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Season</div>
+        <div class="value">Year-Round</div>
+      </div>
+    </div>
+
+    <div class="home-cards">
+      <div class="card">
+        <div class="card-header">Court Hours</div>
+        <div class="card-body">
+          <p>Courts open 7 days a week with structured time slots for beginners, intermediate, and advanced players. Prime weekend hours fill fast.</p>
+          <button class="cta" onclick="switchTab('hours', document.querySelector('[onclick*=hours]'))">See Full Schedule</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Open Play</div>
+        <div class="card-body">
+          <p>Drop-in open play available daily. All weekend sessions require a $5 reservation via PayPal. Weekday open play is always free.</p>
+          <button class="cta" onclick="switchTab('signup', document.querySelector('[onclick*=signup]'))">Reserve Your Spot</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">Community</div>
+        <div class="card-body">
+          <p>PVPA is more than a court — it's a community. We welcome players of all ages and skill levels to grow together and enjoy the game.</p>
+          <button class="cta" onclick="switchTab('about', document.querySelector('[onclick*=about]'))">Learn About Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT PAGE ══ -->
+  <section id="about" class="page">
+    <div class="page-inner">
+      <div class="page-title">About PVPA</div>
+
+      <div class="about-grid">
+        <div class="about-block">
+          <h3>Our Mission</h3>
+          <p>The Palm Valley Pickleball Association exists to grow the sport of pickleball in our community — creating a welcoming, competitive, and fun environment for players at every stage of their journey.</p>
+        </div>
+        <div class="about-block">
+          <h3>Our History</h3>
+          <p>Founded by a group of passionate local players, PVPA has grown from a handful of regulars to a thriving community of hundreds. We maintain 6 dedicated courts and run structured play year-round.</p>
+        </div>
+        <div class="about-block">
+          <h3>Skill Levels</h3>
+          <p>We organize play by skill rating so everyone gets competitive matches. From complete beginners (2.0) to seasoned competitors (4.5+), there's a time slot for every level on our courts.</p>
+        </div>
+        <div class="about-block">
+          <h3>Get Involved</h3>
+          <p>Joining is simple — just show up during open play hours. We also welcome volunteers, sponsors, and anyone interested in helping grow pickleball in Palm Valley.</p>
+        </div>
+      </div>
+
+      <div class="page-title" style="margin-top: 40px;">Our Values</div>
+      <ul class="values-list">
+        <li><span class="dot"></span> Community First</li>
+        <li><span class="dot"></span> All Skill Levels Welcome</li>
+        <li><span class="dot"></span> Fair Play Always</li>
+        <li><span class="dot"></span> Grow the Game</li>
+        <li><span class="dot"></span> Have Fun</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ COURT HOURS PAGE ══ -->
+  <section id="hours" class="page">
+    <div class="page-inner">
+      <div class="page-title">Court Hours & Time Slots</div>
+
+      <div class="hours-intro">
+        Courts are organized by <strong>skill level</strong> to ensure competitive and enjoyable play. Weekday open play is always free. <strong>All weekend sessions require a $5 reservation</strong> — reserve ahead via the Open Play Sign Up tab.
+      </div>
+
+      <!-- MONDAY–FRIDAY -->
+      <div class="day-section">
+        <div class="day-label">Monday – Friday</div>
+        <table class="slots-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Skill Level</th>
+              <th>Rating</th>
+              <th>Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>7:00 AM – 9:00 AM</td>
+              <td><span class="level-pill level-beginner">Beginner</span></td>
+              <td>2.0 – 2.5</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>9:00 AM – 11:00 AM</td>
+              <td><span class="level-pill level-intermediate">Intermediate</span></td>
+              <td>3.0 – 3.5</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>11:00 AM – 1:00 PM</td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>4:00 PM – 6:00 PM</td>
+              <td><span class="level-pill level-intermediate">Intermediate</span></td>
+              <td>3.0 – 3.5</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>6:00 PM – 8:00 PM</td>
+              <td><span class="level-pill level-advanced">Advanced</span></td>
+              <td>4.0+</td>
+              <td>Free</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SATURDAY -->
+      <div class="day-section">
+        <div class="day-label">Saturday <span class="weekend-badge">Weekend</span></div>
+        <table class="slots-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Skill Level</th>
+              <th>Rating</th>
+              <th>Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>7:00 AM – 9:00 AM</td>
+              <td><span class="level-pill level-beginner">Beginner</span></td>
+              <td>2.0 – 2.5</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>9:00 AM – 12:00 PM</td>
+              <td><span class="level-pill level-intermediate">Intermediate</span></td>
+              <td>3.0 – 3.5</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>12:00 PM – 3:00 PM</td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>3:00 PM – 5:00 PM</td>
+              <td><span class="level-pill level-advanced">Advanced</span></td>
+              <td>4.0+</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>5:00 PM – 7:00 PM</td>
+              <td><span class="level-pill level-beginner">Beginner</span></td>
+              <td>2.0 – 2.5</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SUNDAY -->
+      <div class="day-section">
+        <div class="day-label">Sunday <span class="weekend-badge">Weekend</span></div>
+        <table class="slots-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Skill Level</th>
+              <th>Rating</th>
+              <th>Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8:00 AM – 10:00 AM</td>
+              <td><span class="level-pill level-beginner">Beginner</span></td>
+              <td>2.0 – 2.5</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>10:00 AM – 1:00 PM</td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>1:00 PM – 4:00 PM</td>
+              <td><span class="level-pill level-intermediate">Intermediate</span></td>
+              <td>3.0 – 3.5</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+            <tr>
+              <td>4:00 PM – 6:00 PM</td>
+              <td><span class="level-pill level-advanced">Advanced</span></td>
+              <td>4.0+</td>
+              <td><span class="prime-tag">$5</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <strong>Not sure of your skill level?</strong> If you're new to pickleball or haven't been rated, join any Beginner or Open Play session. Our regulars are friendly and happy to help you find your level.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SIGN UP PAGE ══ -->
+  <section id="signup" class="page">
+    <div class="page-inner">
+      <div class="page-title">Open Play Sign Up</div>
+
+      <div class="signup-hero">
+        <h2>Reserve Your Spot</h2>
+        <p>All weekend sessions require a $5 reservation. Weekday open play is always free — just show up.</p>
+        <div class="price-badge">$5 All Weekend Sessions</div>
+        <br>
+        <a href="https://paypal.me/palmvalleypickleball/5" class="btn btn-orange" target="_blank" rel="noopener noreferrer">Pay $5 via PayPal</a>
+      </div>
+
+      <div class="signup-cards">
+        <div class="signup-card">
+          <div class="signup-card-head">How It Works</div>
+          <div class="signup-card-body">
+            <ol class="steps-list">
+              <li>Check the Court Hours tab for your desired session day and time.</li>
+              <li>Pay the $5 fee via PayPal using the button above (all weekend sessions).</li>
+              <li>Save your PayPal confirmation email — this is your receipt.</li>
+              <li>Arrive at the courts and show your PayPal receipt to the court host.</li>
+              <li>Play! Courts are ready and waiting.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="signup-card">
+          <div class="signup-card-head">What's Included</div>
+          <div class="signup-card-body">
+            <p><strong>Court Access</strong><br>Full use of our 6 dedicated pickleball courts for your reserved session window.</p>
+            <p style="margin-top:12px;"><strong>Skill-Based Play</strong><br>Sessions are organized by rating — you'll be matched with players at your level.</p>
+            <p style="margin-top:12px;"><strong>Equipment</strong><br>Loaner paddles available at no extra charge for first-time visitors.</p>
+            <p style="margin-top:12px;"><strong>Free on Weekdays</strong><br>Monday through Friday sessions are always free — no reservation needed.</p>
+            <a href="https://paypal.me/palmvalleypickleball/5" class="paypal-btn" target="_blank" rel="noopener noreferrer">Pay $5 · Reserve Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Payment confirmation:</strong> After paying via PayPal, you'll receive a confirmation email. Simply show that email on your phone to the court host when you arrive — no printed receipt needed. Questions? Email us at <strong>info@pvpickleball.org</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <strong>Palm Valley Pickleball Association</strong> &nbsp;·&nbsp; 6 Dedicated Courts &nbsp;·&nbsp; Year-Round Play<br>
+    <span style="margin-top:6px; display:inline-block;">info@pvpickleball.org &nbsp;·&nbsp; Palm Valley, FL</span>
+  </footer>
+
+  <script>
+    function switchTab(id, btn) {
+      // Update pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      // Update nav buttons
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      // Find the correct tab button
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) {
+          b.classList.add('active');
+        }
+      });
+
+      // Scroll to top
+      window.scrollTo({ top: 0 });
+    }
+  </script>
+</body>
+</html>
