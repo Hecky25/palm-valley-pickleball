@@ -10,9 +10,11 @@
 
     :root {
       --blue:    #1B3D8C;
-      --blue-dark: #122970;
+      --blue-dark: #0D1B2A;
       --green:   #2B6E34;
       --green-light: #3a8a44;
+      --navy: #0D1B2A;
+      --navy-mid: #152336;
       --orange:  #E8722A;
       --yellow:  #F5C200;
       --white:   #FFFFFF;
@@ -77,16 +79,16 @@
 
     /* ── HOME ── */
     .hero {
-      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 50%, var(--green) 100%);
+      background: linear-gradient(160deg, #0D1B2A 0%, #152336 60%, #0e2a1a 100%);
       color: #fff;
       text-align: center;
       padding: 72px 24px 64px;
     }
     .hero-logo {
-      width: 180px;
+      width: 260px;
       height: auto;
       margin-bottom: 28px;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45));
     }
     .hero h1 {
       font-family: 'Barlow Condensed', sans-serif;
@@ -496,6 +498,32 @@
       .tab-btn { padding: 12px 12px; font-size: 0.75rem; }
       .info-item { padding: 14px 18px; }
     }
+  
+    /* prime-link */
+    a.prime-link { display: inline-block; text-decoration: none; font-weight: 700; }
+    a.prime-link:hover { background: var(--orange); color: #fff; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(232,114,42,0.35); }
+
+    /* Court Guidelines page */
+    .guide-section { margin-bottom: 36px; }
+    .guide-section-title { font-size: 1rem; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em; border-left: 4px solid var(--orange); padding-left: 12px; margin-bottom: 14px; }
+    .court-box { background: #f0f4fb; border: 1px solid #dce4f0; border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; }
+    .court-box-name { font-weight: 700; color: var(--blue-dark); font-size: 0.95rem; margin-bottom: 6px; }
+    .court-box ul { list-style: none; padding: 0; margin: 0; }
+    .court-box ul li { font-size: 0.88rem; color: #333; padding: 4px 0; padding-left: 16px; position: relative; line-height: 1.55; }
+    .court-box ul li::before { content: '·'; position: absolute; left: 0; color: var(--orange); font-weight: 900; }
+    .guide-body { font-size: 0.9rem; color: #333; line-height: 1.7; margin-bottom: 10px; }
+    .guide-rule-list { list-style: none; padding: 0; margin: 10px 0 0; }
+    .guide-rule-list li { font-size: 0.88rem; color: #333; padding: 5px 0 5px 18px; position: relative; border-bottom: 1px solid #eee; line-height: 1.55; }
+    .guide-rule-list li:last-child { border-bottom: none; }
+    .guide-rule-list li::before { content: '·'; position: absolute; left: 0; color: var(--orange); font-weight: 900; font-size: 1.1rem; }
+    .guide-note { background: #fff8ee; border-left: 3px solid var(--yellow); border-radius: 4px; padding: 12px 16px; font-size: 0.85rem; color: #555; line-height: 1.6; margin-top: 10px; }
+    .guide-etiquette { list-style: none; padding: 0; margin: 0; }
+    .guide-etiquette li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: #333; padding: 7px 0; border-bottom: 1px solid #eee; line-height: 1.5; }
+    .guide-etiquette li:last-child { border-bottom: none; }
+    .guide-etiquette li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .reserve-link { display: inline-block; margin-top: 10px; background: var(--blue); color: #fff; font-size: 0.82rem; font-weight: 700; padding: 8px 16px; border-radius: 6px; text-decoration: none; letter-spacing: 0.03em; }
+    .reserve-link:hover { background: var(--blue-dark); }
+
   </style>
 </head>
 <body>
@@ -510,7 +538,7 @@
     <button class="tab-btn active" onclick="switchTab('home', this)">Home</button>
     <button class="tab-btn" onclick="switchTab('about', this)">About</button>
     <button class="tab-btn" onclick="switchTab('hours', this)">Court Hours</button>
-    <button class="tab-btn" onclick="switchTab('signup', this)">Open Play Sign Up</button>
+    <button class="tab-btn" onclick="switchTab('guidelines', this)">Court Guidelines</button>
   </nav>
 
   <!-- ══ HOME PAGE ══ -->
@@ -608,7 +636,7 @@
       <div class="page-title">Court Hours & Time Slots</div>
 
       <div class="hours-intro">
-        Courts are organized by <strong>skill level</strong> to ensure competitive and enjoyable play. Weekday open play is always free. <strong>All weekend sessions require a $5 reservation</strong> — reserve ahead via the Open Play Sign Up tab.
+        Courts are organized by <strong>skill level</strong> to ensure competitive and enjoyable play. Weekday open play is always free. <strong>All weekend sessions require a $5 reservation</strong> — click the <strong>$5 — Pay</strong> button in the table to pay via PayPal and reserve your spot.
       </div>
 
       <!-- MONDAY–FRIDAY -->
@@ -626,20 +654,20 @@
           <tbody>
             <tr>
               <td>7:00 AM – 9:00 AM</td>
-              <td><span class="level-pill level-beginner">Beginner</span></td>
-              <td>2.0 – 2.5</td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
               <td>Free</td>
             </tr>
             <tr>
               <td>9:00 AM – 11:00 AM</td>
-              <td><span class="level-pill level-intermediate">Intermediate</span></td>
-              <td>3.0 – 3.5</td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
               <td>Free</td>
             </tr>
             <tr>
               <td>11:00 AM – 1:00 PM</td>
-              <td><span class="level-pill level-open">Open Play</span></td>
-              <td>All Levels</td>
+              <td><span class="level-pill level-beginner">Beginner</span></td>
+              <td>2.0 – 2.5</td>
               <td>Free</td>
             </tr>
             <tr>
@@ -673,33 +701,33 @@
           <tbody>
             <tr>
               <td>7:00 AM – 9:00 AM</td>
-              <td><span class="level-pill level-beginner">Beginner</span></td>
-              <td>2.0 – 2.5</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><span class="level-pill level-advanced">Advanced</span></td>
+              <td>4.0+</td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
             <tr>
               <td>9:00 AM – 12:00 PM</td>
-              <td><span class="level-pill level-intermediate">Intermediate</span></td>
-              <td>3.0 – 3.5</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
             <tr>
               <td>12:00 PM – 3:00 PM</td>
-              <td><span class="level-pill level-open">Open Play</span></td>
-              <td>All Levels</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><span class="level-pill level-beginner">Beginner</span></td>
+              <td>2.0 – 2.5</td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
             <tr>
               <td>3:00 PM – 5:00 PM</td>
-              <td><span class="level-pill level-advanced">Advanced</span></td>
-              <td>4.0+</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><span class="level-pill level-intermediate">Intermediate</span></td>
+              <td>3.0 – 3.5</td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
             <tr>
               <td>5:00 PM – 7:00 PM</td>
-              <td><span class="level-pill level-beginner">Beginner</span></td>
-              <td>2.0 – 2.5</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
+              <td>Free</td>
             </tr>
           </tbody>
         </table>
@@ -719,28 +747,22 @@
           </thead>
           <tbody>
             <tr>
-              <td>8:00 AM – 10:00 AM</td>
-              <td><span class="level-pill level-beginner">Beginner</span></td>
-              <td>2.0 – 2.5</td>
-              <td><span class="prime-tag">$5</span></td>
-            </tr>
-            <tr>
-              <td>10:00 AM – 1:00 PM</td>
+              <td>8:00 AM – 11:00 AM</td>
               <td><span class="level-pill level-open">Open Play</span></td>
               <td>All Levels</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
             <tr>
-              <td>1:00 PM – 4:00 PM</td>
-              <td><span class="level-pill level-intermediate">Intermediate</span></td>
-              <td>3.0 – 3.5</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td>11:00 AM – 2:00 PM</td>
+              <td><span class="level-pill level-open">Open Play</span></td>
+              <td>All Levels</td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
             <tr>
-              <td>4:00 PM – 6:00 PM</td>
+              <td>2:00 PM – 6:00 PM</td>
               <td><span class="level-pill level-advanced">Advanced</span></td>
               <td>4.0+</td>
-              <td><span class="prime-tag">$5</span></td>
+              <td><a href="https://paypal.me/palmvalleypickleball/5" target="_blank" rel="noopener noreferrer" class="prime-tag prime-link">$5 — Pay</a></td>
             </tr>
           </tbody>
         </table>
@@ -752,7 +774,109 @@
     </div>
   </section>
 
-  <!-- ══ SIGN UP PAGE ══ -->
+  <!-- ══ COURT GUIDELINES PAGE ══ -->
+  <section id="guidelines" class="page">
+    <div class="page-inner">
+      <div class="page-title">Court Guidelines</div>
+
+      <!-- Courts 1 & 2 -->
+      <div class="guide-section">
+        <div class="guide-section-title">Courts 1 &amp; 2 — Teaching &amp; Challenge Courts</div>
+        <div class="court-box">
+          <div class="court-box-name">Courts 1 &amp; 2</div>
+          <ul>
+            <li>When not in use for lessons, available for Open Play</li>
+            <li>May be used as Challenge Courts when open</li>
+            <li>Preferred for structured instruction and skill-building sessions</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Court Reserve -->
+      <div class="guide-section">
+        <div class="guide-section-title">Court Reserve — Courts 7, 8, 9 &amp; 10</div>
+        <div class="court-box">
+          <div class="court-box-name">Reservable Courts</div>
+          <ul>
+            <li>Courts 7, 8, 9, and 10 are available for reservation</li>
+            <li>$40 for 90-minute reserved time slots</li>
+            <li>When not reserved, Courts 7–10 are available for Open Play</li>
+          </ul>
+          <a href="#" class="reserve-link">Reserve via CourtReserve</a>
+        </div>
+      </div>
+
+      <!-- Open Play Rotations -->
+      <div class="guide-section">
+        <div class="guide-section-title">Open Play Rotations</div>
+        <div class="court-box" style="margin-bottom:14px;">
+          <div class="court-box-name">Two Up / Two Down Rotation <span style="font-weight:400;font-size:0.8rem;color:#666;">(7 or fewer paddles waiting)</span></div>
+          <ul>
+            <li>Winners remain on the court and split</li>
+            <li>Two new players from the rack join the new game</li>
+            <li>After two consecutive games, leave the court and paddle up again</li>
+          </ul>
+          <div class="guide-note">Groups of four wanting to play together: find the next open color with four available slots and place paddles there. If a group of two or three is ahead, they may pick up a player from those coming off to make four. The foursome plays next.</div>
+        </div>
+        <div class="court-box">
+          <div class="court-box-name">Four On / Four Off Rotation <span style="font-weight:400;font-size:0.8rem;color:#666;">(8 or more paddles waiting)</span></div>
+          <ul>
+            <li>All four players rotate off after each game</li>
+            <li>Next four players in the queue take the court</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Challenge Court -->
+      <div class="guide-section">
+        <div class="guide-section-title">Challenge Court</div>
+        <p class="guide-body">Challenge Courts are a fun way to boost the competitive level of games during Open Play — giving players opportunities to grow their skills by challenging better players and allowing stronger players to share their knowledge. Challenge Courts attract upper-level players and promote a culture of quality play and improvement.</p>
+        <ul class="guide-rule-list">
+          <li>Winners stay for up to three games when two or more teams (or four players) are waiting</li>
+          <li>Teams of two are recommended — single players can disrupt the order of play</li>
+          <li>Designed to enable two-person teams to play competitive games</li>
+        </ul>
+      </div>
+
+      <!-- Singles Play -->
+      <div class="guide-section">
+        <div class="guide-section-title">Singles Play</div>
+        <ul class="guide-rule-list">
+          <li>Singles play is available if there are open courts</li>
+          <li>If paddles are in the queue, Open Play rotations should be followed</li>
+        </ul>
+      </div>
+
+      <!-- Level of Play -->
+      <div class="guide-section">
+        <div class="guide-section-title">Level of Play</div>
+        <ul class="guide-rule-list">
+          <li>Find the colored pickleball sign that matches your level and paddle up</li>
+          <li>Colored signs may change based on who shows up — check before paddling up</li>
+          <li>For your safety and others, assess the level of play on all courts before joining</li>
+          <li>If a Court Ambassador is on duty, ask them to help you find the right court</li>
+        </ul>
+      </div>
+
+      <!-- Court Etiquette -->
+      <div class="guide-section">
+        <div class="guide-section-title">PVPA Court Etiquette</div>
+        <ul class="guide-etiquette">
+          <li>No pets inside courts</li>
+          <li>Shirts and sneakers required</li>
+          <li>No bikes or skateboards on the court</li>
+          <li>No spectators on the courts during play</li>
+          <li>No profanity</li>
+          <li>Play permitted between 8:00 AM and 9:00 PM only</li>
+          <li>Respect all skill-level designations — play where your game belongs</li>
+          <li>Welcome new players and help grow the game</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ SIGN UP PAGE (hidden) ══ -->
   <section id="signup" class="page">
     <div class="page-inner">
       <div class="page-title">Open Play Sign Up</div>
